@@ -1,0 +1,59 @@
+/* Set background image */
+body {
+  background-image: url("bg.png");
+  background-size: cover;
+}
+
+/* Style panels */
+.panel {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Style subpanels */
+.subpanel {
+  width: 50%;
+  float: left;
+}
+
+/* Style image in subpanel */
+.subpanel img {
+  max-width: 100%;
+}
+
+/* Style description in subpanel */
+.description {
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Style suggested pairs section */
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style images in suggested pairs */
+.suggested-pairs img {
+  max-width: 100%;
+  margin-right: 20px;
+}
+
+/* Style where to buy section */
+.where-to-buy {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style subtitles in where to buy and potential discounts */
+.subtitle {
+  margin-bottom: 10px;
+}
+
+/* Style potential discounts section */
+.potential-discounts {
+  text-align: center;
+  margin-bottom: 20px;
+}
