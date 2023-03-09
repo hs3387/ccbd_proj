@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Upload Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+      body {
+        background-image: url('bg.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      
+      .panel {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        height: 100vh;
+        overflow-y: scroll;
+      }
+      
+      .panel-title {
+        color: #ffffff;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 2rem;
+        text-align: center;
+        text-shadow: 0 0 10px rgba(0,0,0,0.3);
+        text-transform: uppercase;
+      }
+      
+      .panel-content {
+        padding: 2rem;
+      }
+      
+      .panel-content h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      
+      .panel-content .history-tile {
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        transition: box-shadow 0.2s ease;
+      }
+      
+      .panel-content .history-tile:hover {
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        cursor: pointer;
+        transform: translateY(-5px);
+      }
+      
+      .panel-content .history-tile:last-child {
+        margin-bottom: 0;
+      }
+      
+      .upload-panel {
+        background-color: #ffb6c1;
+        margin-right: 2rem;
+      }
+      
+      .upload-panel .upload-btn {
+        background-color: #ffffff;
+        border-radius: 5px;
+        color: #ffb6c1;
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 1rem 2rem;
+        text-transform: uppercase;
+        transition: background-color 0.2s ease;
+      }
+      
+      .upload-panel .upload-btn:hover {
+        background-color: #ffffff;
+        color: #ffb6c1;
+        cursor: pointer;
+      }
+      
+      .upload-panel .upload-btn:focus {
+        outline: none;
+      }
+      
+      .loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      
+      .loading-container img {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+
+  </head>
+  <body>
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel upload-panel">
+          <div class="panel-content">
+            <h2>Upload an Image</h2>
+            <div class="form-group">
+              <label for="imageInput" class="upload-btn">Select Image</label>
+              <input type="file" class="form-control-file d-none" id="imageInput">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel">
+          <div class="panel-content">
+            <h2>Image History</h2>
+            <div id="historyPanel">
+              <div class="history-tile">History Tile 1</div>
+              <div class="history-tile">History Tile 2</div>
+              <div class="history-tile">History Tile 3</div>
+              <div class="history-tile">History Tile 4</div>
+              <div class="history-tile">History Tile 5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading GIF -->
+  <div id="loading" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <img src="loading.gif" alt="Loading">
+  </div>
+
+  <!-- Bootstrap JS from CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+	  $('#imageInput').on('change', function() {
+		if (this.files && this.files[0]) {
+		  // Show loading GIF
+		  $('#loading').show();
+
+		  // Wait for 3 seconds before redirecting
+		  var inputFile = this;
+		  setTimeout(function() {
+			var imageName = inputFile.files[0].name;
+			window.location.href = 'p2.html?imageName=' + encodeURIComponent(imageName);
+		  }, 3000);
+		}
+	  });
+
+	  // Add mouseover effect to history tiles
+	  $('.history-tile').mouseover(function() {
+		$(this).addClass('shadow-lg');
+	  }).mouseout(function() {
+		$(this).removeClass('shadow-lg');
+	  });
+	});
+
+      // Remove mouseover effect from history tiles
+      $('.history-tile').mouseout(function() {
+        $(this).css({
+          'transform': 'translateY(0)',
+          'box-shadow': 'none'
+        });
+      });
+  </script>
+
+  <style>
+  body {
+    background-image: url('bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .panel {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    height: 100vh;
+    overflow-y: scroll;
+  }
+  
+  .panel-title {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+    text-transform: uppercase;
+  }
+  
+  .panel-content {
+    padding: 2rem;
+  }
+  
+  .panel-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .panel-content .history-tile {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .panel-content .history-tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  }
+  
+  .panel-content .history-tile:last-child {
+    margin-bottom: 0;
+  }
+  
+  .upload-panel {
+    background-color: #ffb6c1;
+    margin-right: 2rem;
+  }
+  
+  .upload-panel .upload-btn {
+    background-color: #ffffff;
+    border-radius: 5px;
+    color: #ffb6c1;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+  }
+  
+  .upload-panel .upload-btn:hover {
+    background-color: #ffffff;
+    color: #ffb6c1;
+    cursor: pointer;
+  }
+  
+  .upload-panel .upload-btn:focus {
+    outline: none;
+  }
+  
+  /* New styles added for loading gif */
+  .loading-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+    display: none;
+  }
+  
+  .loading-overlay img {
+    width: 80px;
+    height: 80px;
+  }
+  
+</style>
