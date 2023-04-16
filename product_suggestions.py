@@ -41,7 +41,6 @@ def get_original_images(input):
             image_urls.append(url_decode)
             
 	# download_original_images(image_urls)	
-	
     return image_urls
 
 
@@ -108,4 +107,5 @@ def get_suggested_search_data(input):
     top_suggestions = json.dumps(top_three, indent=2, ensure_ascii=False)
     return top_suggestions
 
-get_suggested_search_data(["black", "formal shoes", "mens"])
+# Test:
+# get_suggested_search_data(["black", "formal shoes", "mens"])
