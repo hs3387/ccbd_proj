@@ -104,5 +104,8 @@ def run(bucket = "cloud-photos-b2", photo = "green-blouse.jpg"):
     
     return suggestions_data
 
-# Test
-# run()
+def lambda_handler(event,context):
+    print("EVENT:",event)
+    print("context:",context)
+
+    return
