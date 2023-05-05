@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photo Uploader</title>
+  </head>
+  <body>
+    <input type="file" id="photo-input" />
+    <button onclick="uploadPhoto()">Upload Photo</button>
+    <br />
+    <img id="photo-preview" />
+    <script>
+      function uploadPhoto() {
+        var input = document.getElementById("photo-input");
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var preview = document.getElementById("photo-preview");
+          preview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://078hrqbyac.execute-api.us-east-1.amazonaws.com/demo/upload/cloud-photos-b2/" + file.name);
+        xhr.setRequestHeader("x-api-key", "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil");
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            alert("Photo uploaded successfully!");
+          } else {
+            alert("Error uploading photo.");
+          }
+        };
+        xhr.send(file);
+      }
+    </script>
+  </body>
+</html>
