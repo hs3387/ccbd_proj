@@ -68,6 +68,10 @@
       <div class="col">
         <div class="text-center">
           <h3>Submit</h3>
+		  <div class="form-group">
+            <label for="username-input">Enter Username:</label>
+            <input type="text" class="form-control" id="username-input" required>
+          </div>
           <button type="submit" class="btn btn-lg btn-custom my-5">Submit</button>
           <ul id="labels-list"></ul>
         </div>
@@ -78,62 +82,61 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
   <script>
-    $(document).ready(function() {
-	  // handle file selection
-	  $('#select-photo-btn').click(function() {
-		$('#photo-input').trigger('click');
-	  });
-	  $('#photo-input').change(function() {
-		// display selected image
-		if (this.files && this.files[0]) {
-		  var reader = new FileReader();
-		  reader.onload = function(e) {
-			$('#image-view').attr('src', e.target.result);
-		  };
-		  reader.readAsDataURL(this.files[0]);
-		}
-	  }); 
+  $(document).ready(function() {
+    // handle file selection
+    $('#select-photo-btn').click(function() {
+      $('#photo-input').trigger('click');
+    });
+    $('#photo-input').change(function() {
+      // display selected image
+      if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $('#image-view').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
+    }); 
 
+    // handle form submission
+    $('#upload-form').submit(function(e) {
+      e.preventDefault();
+      var photo = $('#photo-input')[0].files[0];
+      var username = $('#username-input').val();
 
-	  // handle form submission
-	$('#upload-form').submit(function(e) {
-	  e.preventDefault();
-	  var photo = $('#photo-input')[0].files[0];
-	  
+      // create form data
+      var formData = new FormData();
+      formData.append('photo', photo);
 
-	  // create form data
-	  var formData = new FormData();
-	  formData.append('photo', photo);
+      // make API call
+      $.ajax({
+        url: "https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/haya_test/upload/cloud-photos-b2/" + photo.name,
+        type: "PUT",
+        data: photo,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers" : "*",
+          "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil",
+          'x-amz-meta-customLabels': username,
+          "Content-Type": photo.type,
+          "Accept": "*/*"
+        },
+        dataType: "text",
+        processData: false,
+        contentType: false,
 
-	  // make API call
-	  $.ajax({
-		url: "https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/haya_test/upload/cloud-photos-b2/" + photo.name,
-		type: "PUT",
-		data: photo,
-		headers: {
-		  "Access-Control-Allow-Origin": "*",
-		  "Access-Control-Allow-Headers" : "*",
-		  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil",
-		  "Content-Type": photo.type,
-		  "Accept": "*/*"
-		},
-		dataType: "text",
-		processData: false,
-		contentType: false,
-
-		success: function(data) {
-		  alert('Upload successful!');
-		  $('#upload-form')[0].reset();
-		  $('#image-view').attr('src', '');
-		  $('#labels-list').empty();
-		},
-		error: function(xhr, textStatus, errorThrown) {
-		  alert('Upload failed: ' + textStatus +errorThrown);
-		}
-	  });
-	});
-});
-
-  </script>
+        success: function(data) {
+          alert('Upload successful!');
+          $('#upload-form')[0].reset();
+          $('#image-view').attr('src', '');
+          $('#labels-list').empty();
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          alert('Upload failed: ' + textStatus +errorThrown);
+        }
+      });	  
+    });
+  });
+</script>
 </body>
 </html>
