@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cookie Example</title>
+</head>
+<body>
+	<h1>Cookie Example</h1>
+	<p>Press the button to increase the count:</p>
+	<button onclick="increaseCount()">Press me!</button>
+	<p>Count: <span id="count"></span></p>
+	<button onclick="deleteCount()">Delete Count</button>
+
+	<script>
+		// Function to increase the count and update the display
+		function increaseCount() {
+			var count = parseInt(localStorage.getItem("count")) || 0;
+			count++;
+			localStorage.setItem("count", count);
+			document.getElementById("count").innerHTML = count;
+		}
+
+		// Function to delete the count and reset to 0
+		function deleteCount() {
+			localStorage.removeItem("count");
+			document.getElementById("count").innerHTML = 0;
+		}
+
+		// Initialize the count on page load
+		var count = parseInt(localStorage.getItem("count")) || 0;
+		localStorage.setItem("count", count);
+		document.getElementById("count").innerHTML = count;
+	</script>
+</body>
+</html>
