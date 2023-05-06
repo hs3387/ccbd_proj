@@ -40,7 +40,7 @@ def list_creation(path):
 
     return color_input, color_output, dress_input, dress_output
 
-def color_vetorize(color_input, color_output, test_input):
+def color_vectorize(color_input, color_output, test_input):
     # Define a list of sentences
     sentences = color_input + color_output
 
@@ -79,7 +79,7 @@ test_input = 'Forest Green'
 color_input, color_output, dress_input, dress_output = list_creation(file_path)
 
 if colorORdress == 'color':
-    color_similarity = color_vetorize(color_input, color_output, test_input )
+    color_similarity = color_vectorize(color_input, color_output, test_input )
 else:
-    dress_similarity = color_vetorize(dress_input, dress_output, test_input )
+    dress_similarity = dress_vectorize(dress_input, dress_output, test_input )
 
