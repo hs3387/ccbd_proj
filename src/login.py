@@ -1,35 +1,66 @@
 import boto3
 
-def lambda_handler(event, context):
-    # Extract the event data
-    event_type = event['type']
-    user = event['user']
-    password = event['pass']
+def signin(usersTable, user, password):
     
-    # Print the extracted data
-    print(f"Event type: {event_type}")
-    print(f"User: {user}")
-    print(f"Password: {password}")
+    # Query the table for the user's ID
+    try: 
+        userresponse = usersTable.get_item(Key={'id': user})
+        if 'Item' not in userresponse:
+            raise ValueError("User Not Found")
+        
+    except:
+        return "User Not Found"
+
+    if password == userresponse['Item']['password']:
+        result = "LOGIN SUCCESS"
+    else:
+        result = "LOGIN FAIL"
+
+    return result
+
+def signup(usersTable, user, password):
+    
+    try: 
+        userresponse = usersTable.get_item(Key={'id': user})
+        if 'Item' in userresponse:
+            return "User Already Exists"
+    except:
+        print("proceed")
+    
+    
+    try: 
+        usersTable.put_item(Item={'id': user, 'password': password})
+    except:
+        return "User Creation Failed"
+    
+    return "User Created"
+    
+
+
+def lambda_handler(event, context):
+    
+    print(f"event is THIS: {event}")
+    # Extract the event data
+    event_type = event['queryStringParameters']['type']
+    user = event['queryStringParameters']['user']
+    password = event['queryStringParameters']['pass']
     
     # Connect to the DynamoDB table
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('clothing_user')
+    usersTable = dynamodb.Table('clothing_users')
     
-    # Query the table for the user's ID
-    response = table.get_item(
-        Key={
-            'id': user
+    if event_type == "signin":
+        result = signin(usersTable, user, password)
+    elif event_type == "signup":
+        result = signup(usersTable, user, password)
+    else:
+        return{
+        'statusCode': 400,
+        'body': "INVALID USAGE"
         }
-    )
     
-    # Extract the ID from the response
-    user_id = response['Item']['id']
-    
-    # Print the user's ID
-    print(f"User ID: {user_id}")
-    
-    # Return a response
     return {
         'statusCode': 200,
-        'body': f"User ID: {user_id}"
+        'body': result
     }
+    

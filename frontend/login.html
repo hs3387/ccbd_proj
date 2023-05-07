@@ -21,8 +21,35 @@
       color: white;
     }
 
+    .btn-signin {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
     .btn-signup {
-      margin-left: 10px;
+      background-color: #007bff;
+      border-color: #007bff;
+      margin-right: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    #response {
+      margin-top: 10px;
+    }
+
+    #title {
+      text-align: center;
+      font-size: 36px;
+      font-family: Arial, sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: 100%;
+      margin: 0 auto;
     }
   </style>
 </head>
@@ -30,6 +57,7 @@
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
+        <h1 id="title">User Login</h1>
         <form>
           <div class="form-group">
             <label for="username">Username*</label>
@@ -39,38 +67,75 @@
             <label for="password">Password*</label>
             <input type="password" class="form-control" id="password" required>
           </div>
-          <div class="form-group">
-            <button type="button" class="btn btn-primary" id="btn-signin">Sign In</button>
+          <div class="form-group text-center">
             <button type="button" class="btn btn-success btn-signup" id="btn-signup">Sign Up</button>
+            <button type="button" class="btn btn-primary btn-signin" id="btn-signin">Sign In</button>
           </div>
         </form>
+        <div id="response"></div>
       </div>
     </div>
   </div>
 
   <!-- jQuery and Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <!-- sha256 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/js-sha256@0.9.0/build/sha256.min.js"></script>
-  <!-- Custom JS -->
-  <script>
-    $(document).ready(function() {
-      $("#btn-signin").click(function() {
-        var username = $("#username").val();
-        var password = $("#password").val();
-        var hashedPassword = sha256(password);
-        alert("Sign In clicked. Username: " + username + ", Password (before hash): " + password + ", Password (after hash): " + hashedPassword);
-      });
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<!-- sha256 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/js-sha256@0.9.0/build/sha256.min.js"></script>
+	<!-- Custom JS -->
+	<script>
+	  $(document).ready(function() {
+		$("#btn-signin").click(function() {
+		  var username = $("#username").val();
+		  var password = $("#password").val();
+		  var hashedPassword = sha256(password);
 
-      $("#btn-signup").click(function() {
-        var username = $("#username").val();
-        var password = $("#password").val();
-        var hashedPassword = sha256(password);
-        alert("Sign Up clicked. Username: " + username + ", Password (before hash): " + password + ", Password (after hash): " + hashedPassword);
-      });
-    });
-  </script>
+		  $.ajax({
+			url: "https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/login_test/login",
+			method: "GET",
+			data: {
+			  user: username,
+			  pass: hashedPassword,
+			  type: "signin"
+			},
+			headers: {
+			  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
+			},
+			success: function(response) {
+			  $("#response").html("<p>" + response + "</p>");
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+			  $("#response").html("<p class='text-danger'>" + textStatus + ": " + errorThrown + "</p>");
+			}
+		  });
+		});
+
+		$("#btn-signup").click(function() {
+		  var username = $("#username").val();
+		  var password = $("#password").val();
+		  var hashedPassword = sha256(password);
+
+		  $.ajax({
+			url: "https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/login_test/login",
+			method: "GET",
+			data: {
+			  user: username,
+			  pass: hashedPassword,
+			  type: "signup"
+			},
+			headers: {
+			  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
+			},
+			success: function(response) {
+			  $("#response").html("<p>" + response + "</p>");
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+			  $("#response").html("<p class='text-danger'>" + textStatus + ": " + errorThrown + "</p>");
+			}
+		  });
+		});
+	  });
+	</script>
 </body>
 </html>
