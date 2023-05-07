@@ -1,0 +1,236 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+		.container {
+			padding: 30px;
+		}
+
+		.card {
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+		}
+
+        .card:hover {
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+		}
+
+		.card img {
+			width: 100%;
+			height: 200px;
+			object-fit: cover;
+			border-radius: 10px;
+		}
+
+		.card h3 {
+			margin-top: 10px;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		.card p {
+			font-size: 14px;
+			margin: 5px 0;
+		}
+
+
+		.card .cost {
+			color: #ff6b6b;
+			font-weight: bold;
+		}
+
+		.card .revenue {
+			color: #2ecc71;
+			font-weight: bold;
+		}
+
+		.card button {
+			margin-top: 10px;
+			padding: 10px 20px;
+			background-color: #2ecc71;
+			border: none;
+			color: #fff;
+			font-size: 14px;
+			font-weight: bold;
+			border-radius: 10px;
+			cursor: pointer;
+		}
+
+        .col-md-4{
+            padding-bottom: 10px;
+        }
+		.navbar {
+			background-color: #343a40;
+			font-family: 'Philly Sans', sans-serif;
+			color: white;
+			text-align: center;
+		}
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<button type="button" class="btn btn-link text-white"> < Previous Page</button>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<button type="button" class="btn btn-link text-white">Next Page ></button>
+				</li>
+				<li class="nav-item">
+					<button type="button" class="btn btn-danger">Logout</button>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<!-- Content goes here -->
+	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="main-project">
+                    <img src={{products[5]}}>
+                    <h3>Product Description</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+                    <p>Detected as:</p>
+                    {% for item in products[6] %}
+                    <div>
+                        <label>{{item}}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h3>Where to Buy</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="{{ products[1][0] }}" >
+                            <h3>{{ products[0][0] }}</h3>
+                            <p>Cost: <span class="cost">{{ products[2][0] }}</span></p>
+                            <p>Rating: <span class="revenue">{{ products[3][0] }}</span></p>
+                            <a href="{{ products[4][0] }}" class="btn btn-primary">BUY</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="{{ products[1][1] }}" >
+                            <h3>{{ products[0][1] }}</h3>
+                            <p>Cost: <span class="cost">{{ products[2][1] }}</span></p>
+                            <p>Rating: <span class="revenue">{{ products[3][1] }}</span></p>
+                            <a href="{{ products[4][1] }}" class="btn btn-primary">BUY</a>
+                        </div>
+                    </div>
+                    <h3>Other suggestions</h3>
+                    {% for i in range(2, length): %}
+                    {% if (i-2) % 3 == 0 %}
+                    </div>
+                    <div class="row">
+                    {% endif %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{{ products[1][i] }}" >
+                            <h3>{{ products[0][i] }}</h3>
+                            <p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
+                            <p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
+                            <a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+	<script>
+		// Define a function to make the AJAX request
+		function getProducts() {
+			// Get the URL parameters
+			const urlParams = new URLSearchParams(window.location.search);
+			const productId = urlParams.get('productId');
+			const productName = urlParams.get('productName');
+		
+			// Create a new XMLHttpRequest object
+			const xhr = new XMLHttpRequest();
+		
+			// Define the URL to send the request to
+			const url = `https://example.com/products?productId=${productId}&productName=${productName}`;
+		
+			// Set the method to GET and the URL to send the request to
+			xhr.open('GET', url);
+		
+			// Define the function to handle the response
+			xhr.onload = function() {
+			if (xhr.status === 200) {
+				// Parse the response body as JSON
+				const response = JSON.parse(xhr.responseText);
+		
+				// Save the list of products to a variable
+				const products = response.products;
+		
+				// Use the products variable to update the HTML page
+				// ...
+				// Get the container where the product cards will be added
+				const container = document.querySelector(".container .row");
+
+				// Loop through each product and create a card for it
+				products.forEach((product) => {
+				const card = document.createElement("div");
+				card.classList.add("col-md-6");
+
+				const cardBody = document.createElement("div");
+				cardBody.classList.add("card");
+
+				const image = document.createElement("img");
+				image.src = product.image;
+
+				const title = document.createElement("h3");
+				title.innerText = product.name;
+
+				const cost = document.createElement("p");
+				cost.innerHTML = `Cost: <span class="cost">${product.cost}</span>`;
+
+				const rating = document.createElement("p");
+				rating.innerHTML = `Rating: <span class="revenue">${product.rating}</span>`;
+
+				const buyLink = document.createElement("a");
+				buyLink.href = product.buyUrl;
+				buyLink.innerText = "BUY";
+				buyLink.classList.add("btn", "btn-primary");
+
+				cardBody.appendChild(image);
+				cardBody.appendChild(title);
+				cardBody.appendChild(cost);
+				cardBody.appendChild(rating);
+				cardBody.appendChild(buyLink);
+				card.appendChild(cardBody);
+				container.appendChild(card);
+				});
+
+				
+			} else {
+				// Handle the error
+				console.error('Error:', xhr.statusText);
+			}
+			};
+		
+			// Send the request
+			xhr.send();
+		}
+		
+		// Call the getProducts function to make the AJAX request
+		getProducts();
+		
+	</script>
+</body>
