@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--#Created By: Hayagreevan Sriram
+#Columbia University (UNI: hs3387)
+#For COMS6998 Project
+#Created 05/07/2023-->
+<html>
+<head>
+  <title>Watcha Wearin</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url('bg.gif');
+      background-size: cover;
+    }
+    .center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-custom {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      transition: transform 0.2s;
+      margin: 0 5px; /* Add margin to the left and right of the buttons */
+    }
+    .btn-custom:hover {
+      background-color: #0069d9;
+      color: #fff;
+      transform: scale(1.1);
+    }
+    .btn-custom:focus {
+      outline: none;
+      box-shadow: none;
+      background-color: #28a745;
+      color: #fff;
+      transform: scale(1.1);
+    }
+    h1 {
+      text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+    }
+    .center div:first-child {
+      margin-bottom: 10px; /* Reduce the margin between the logo and the buttons */
+    }
+    .btn-group {
+      display: flex; /* Add display flex to make the buttons appear on the same row */
+    }
+    img {
+      margin-bottom: 20px; /* Add margin to the bottom of the image */
+    }
+    .username-btn {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: yellow;
+      color: black;
+      border: none;
+      margin-left: 5px;
+      padding: 5px 10px;
+      font-weight: bold;
+    }
+    .username-btn:hover {
+      background-color: yellow;
+      color: black;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="center">
+    <img src="logo.png" alt="Photo Album" width="640" height="272">
+    <div class="btn-group"> <!--Wrap the buttons in a div with the class "btn-group" -->
+      <button class="btn btn-lg btn-custom my-5" onclick="location.href='upload.html'">New Photo Search</button>
+      <button class="btn btn-lg btn-custom my-5" onclick="location.href='search.html'">View My Searches</button>
+      <!-- Add the username button -->
+      <button class="username-btn" id="user-btn" onclick="logout()"></button>
+    </div>
+  </div>
+  
+  <script>
+    // Check if the "clothinguser" value exists in the local storage
+    const username = localStorage.getItem('clothinguser');
+    if (!localStorage.getItem('clothinguser')) 
+    {
+      // If it doesn't exist, redirect to login.html
+      window.location.href = "login.html";
+    }
+	
+	const sessionButton = document.getElementById("user-btn");
+	
+	sessionButton.textContent = "Logged in as: " + username;
+	
+	sessionButton.addEventListener('mouseover', function() {
+	  sessionButton.textContent = 'Log Out';
+	});
+	
+	sessionButton.addEventListener('mouseout', function() {
+	  sessionButton.textContent = "Logged in as: " + username;
+	});
+	
+	function logout(){
+		localStorage.removeItem('clothinguser');
+		window.location.href = 'login.html';
+	}
+
+  </script>
+  
+  
+</body>
+</html>

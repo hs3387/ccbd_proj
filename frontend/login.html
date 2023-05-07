@@ -51,12 +51,33 @@
       width: 100%;
       margin: 0 auto;
     }
+	
+	.logo-flash {
+		animation: flash 3s infinite;
+		animation-duration: 3s;
+		animation-delay: 3s;
+	}
+
+	@keyframes flash {
+		0% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+		 100% {
+			opacity: 1;
+		}
+	}
   </style>
 </head>
 <body>
   <div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-md-6">
+      <div class="col-md-8">
+        <div class="text-center mb-5">
+          <img src="logo.png" alt="Watcha Wearin" width="640" height="272" class="mx-auto logo-flash">
+        </div>
         <h1 id="title">User Login</h1>
         <form>
           <div class="form-group">
@@ -76,7 +97,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- jQuery and Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -86,6 +107,12 @@
 	<!-- Custom JS -->
 	<script>
 	  $(document).ready(function() {
+		// Check if clothinguser item exists in localStorage and redirect to index.html if it does
+		var clothingUser = localStorage.getItem("clothinguser");
+		if (clothingUser !== null) {
+		  window.location.href = "index.html";
+		}
+
 		$("#btn-signin").click(function() {
 		  var username = $("#username").val();
 		  var password = $("#password").val();
@@ -103,7 +130,13 @@
 			  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
 			},
 			success: function(response) {
-			  $("#response").html("<p>" + response + "</p>");
+			  if (response === "LOGIN SUCCESS") {
+				// Set clothinguser item in localStorage before redirecting to index.html
+				localStorage.setItem("clothinguser", username);
+				window.location.href = "index.html?username=" + username;
+			  } else {
+				$("#response").html("<p>" + response + "</p>");
+			  }
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 			  $("#response").html("<p class='text-danger'>" + textStatus + ": " + errorThrown + "</p>");
@@ -137,5 +170,6 @@
 		});
 	  });
 	</script>
+
 </body>
 </html>
