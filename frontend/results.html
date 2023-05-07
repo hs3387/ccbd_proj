@@ -164,15 +164,9 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="main-project">
-                    <img src={{products[5]}}>
-                    <h3>Product Description</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-                    <p>Detected as:</p>
-                    {% for item in products[6] %}
-                    <div>
-                        <label>{{item}}</label>
-                    </div>
-                    {% endfor %}
+                    <img>
+                    <h3>Detected as</h3>
+                    <div id="img_labels">Labels</div>
                 </div>
             </div>
             <div class="col-md-8">
@@ -180,7 +174,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card">
-                            <img src="{{ products[1][0] }}" >
+                            <img>
                             <h3>{{ products[0][0] }}</h3>
                             <p>Cost: <span class="cost">{{ products[2][0] }}</span></p>
                             <p>Rating: <span class="revenue">{{ products[3][0] }}</span></p>
@@ -196,26 +190,43 @@
                             <a href="{{ products[4][1] }}" class="btn btn-primary">BUY</a>
                         </div>
                     </div>
-                    <h3>Other suggestions</h3>
-                    {% for i in range(2, length): %}
-                    {% if (i-2) % 3 == 0 %}
-                    </div>
-                    <div class="row">
-                    {% endif %}
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="{{ products[1][i] }}" >
-                            <h3>{{ products[0][i] }}</h3>
-                            <p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
-                            <p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
-                            <a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            
-        </div>
+				</div>
+				<h3>Other suggestions</h3>
+				
+				<div class="row">
+					<div class="col-md-4">
+						<div class="card">
+							<img src="{{ products[1][i] }}" >
+							<h3>{{ products[0][i] }}</h3>
+							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
+							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
+							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="card">
+							<img src="{{ products[1][i] }}" >
+							<h3>{{ products[0][i] }}</h3>
+							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
+							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
+							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="card">
+							<img src="{{ products[1][i] }}" >
+							<h3>{{ products[0][i] }}</h3>
+							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
+							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
+							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
+						</div>
+					</div>
+		
+				</div>
+			</div>
+		</div>
     </div>
 	<script>
 
@@ -249,13 +260,9 @@
 	function populatePage() {
 		// Update the main product image
 		document.querySelector('.main-project img').setAttribute('src', products[5]);
-
-		// Update the detected items
-		const detectedItems = document.querySelectorAll('.main-project label');
-		for (let i = 0; i < detectedItems.length; i++) {
-			detectedItems[i].textContent = products[6][i];
-		}
-
+		
+		document.getElementById("img_labels").textContent = products[6].join(" ").replace(/(?:^|\s)\S/g, function(firstChar) {return firstChar.toUpperCase();});
+		
 		// Update the suggested products
 		const suggestedProducts = document.querySelectorAll('.card');
 		for (let i = 0; i < suggestedProducts.length; i++) {
@@ -281,7 +288,7 @@
 		type: 'GET',
 		data: {
 		  user: username,
-		  page: "1"
+		  page: "2"
 		},
 		headers: {
 		  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
@@ -289,7 +296,9 @@
 		success: function(response) {
 			// Store the received response in the products variable
 			products = response;
-
+			
+			console.log(products[0])
+			
 			// Populate the page with the received response
 			populatePage();
 		}
