@@ -133,7 +133,7 @@
 			  if (response === "LOGIN SUCCESS") {
 				// Set clothinguser item in localStorage before redirecting to index.html
 				localStorage.setItem("clothinguser", username);
-				window.location.href = "index.html?username=" + username;
+				window.location.href = "index.html";
 			  } else {
 				$("#response").html("<p>" + response + "</p>");
 			  }
