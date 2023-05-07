@@ -1,98 +1,162 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-		.container {
-			padding: 30px;
-		}
+        .container {
+            padding: 30px;
+        }
 
-		.card {
-			padding: 20px;
-			border-radius: 10px;
-			box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-		}
+        .card {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
         .card:hover {
-			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-		}
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+        }
 
-		.card img {
-			width: 100%;
-			height: 200px;
-			object-fit: cover;
-			border-radius: 10px;
-		}
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
 
-		.card h3 {
-			margin-top: 10px;
-			font-size: 18px;
-			font-weight: bold;
-		}
+        .card h3 {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
 
-		.card p {
-			font-size: 14px;
-			margin: 5px 0;
-		}
+        .card p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
 
 
-		.card .cost {
-			color: #ff6b6b;
-			font-weight: bold;
-		}
+        .card .cost {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
 
-		.card .revenue {
-			color: #2ecc71;
-			font-weight: bold;
-		}
+        .card .revenue {
+            color: #2ecc71;
+            font-weight: bold;
+        }
 
-		.card button {
-			margin-top: 10px;
-			padding: 10px 20px;
-			background-color: #2ecc71;
-			border: none;
-			color: #fff;
-			font-size: 14px;
-			font-weight: bold;
-			border-radius: 10px;
-			cursor: pointer;
-		}
+        .card button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
 
         .col-md-4{
             padding-bottom: 10px;
         }
-		.navbar {
-			background-color: #343a40;
-			font-family: 'Philly Sans', sans-serif;
-			color: white;
-			text-align: center;
-		}
-    </style>
-</head>
 
+        .navbar {
+            background-color: #343a40;
+            font-family: 'Philly Sans', sans-serif;
+            color: white;
+            text-align: center;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .navbar img {
+            max-height: 60px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .navbar-nav {
+			display: flex;
+			align-items: center;
+			margin: 0;
+			flex-grow: 1;
+		}
+
+		.navbar-nav:first-child {
+			margin-right: auto;
+		}
+
+		.navbar-nav:last-child {
+			margin-left: auto;
+		}
+
+
+        .nav-item {
+            margin: 0 10px;
+        }
+
+        .navbar-nav > .nav-item:first-child {
+            margin-right: auto;
+        }
+
+        .navbar-nav > .nav-item:last-child {
+            margin-left: auto;
+        }
+
+        .username-btn {
+            background-color: yellow;
+            color: black;
+            border: none;
+            margin-left: 5px;
+            padding: 5px 10px;
+            font-weight: bold;
+        }
+
+        .username-btn:hover {
+           background-color: yellow;
+		   color: black;
+		   cursor: pointer;
+	    }
+</style>
+
+</head>
 <body>
+
     <nav class="navbar navbar-expand-lg">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		<img src="logo.png" alt="logo">
 		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav mr-auto">
+			<ul class="navbar-nav">
 				<li class="nav-item">
-					<button type="button" class="btn btn-link text-white"> < Previous Page</button>
+					<button type="button" class="btn btn-link text-white"> < Previous Result</button>
+				</li>
+				<li class="nav-item">
+					<button class="username-btn" id="user-btn" onclick="logout()"></button>
 				</li>
 			</ul>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<button type="button" class="btn btn-link text-white">Next Page ></button>
-				</li>
-				<li class="nav-item">
-					<button type="button" class="btn btn-danger">Logout</button>
-				</li>
-			</ul>
+			<div class="ml-auto">
+				<button type="button" class="btn btn-link text-white">Next Result ></button>
+			</div>
 		</div>
 	</nav>
+
+
+
+
+
+	
 	<div class="container">
-		<!-- Content goes here -->
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     
@@ -154,83 +218,84 @@
         </div>
     </div>
 	<script>
-		// Define a function to make the AJAX request
-		function getProducts() {
-			// Get the URL parameters
-			const urlParams = new URLSearchParams(window.location.search);
-			const productId = urlParams.get('productId');
-			const productName = urlParams.get('productName');
-		
-			// Create a new XMLHttpRequest object
-			const xhr = new XMLHttpRequest();
-		
-			// Define the URL to send the request to
-			const url = `https://example.com/products?productId=${productId}&productName=${productName}`;
-		
-			// Set the method to GET and the URL to send the request to
-			xhr.open('GET', url);
-		
-			// Define the function to handle the response
-			xhr.onload = function() {
-			if (xhr.status === 200) {
-				// Parse the response body as JSON
-				const response = JSON.parse(xhr.responseText);
-		
-				// Save the list of products to a variable
-				const products = response.products;
-		
-				// Use the products variable to update the HTML page
-				// ...
-				// Get the container where the product cards will be added
-				const container = document.querySelector(".container .row");
 
-				// Loop through each product and create a card for it
-				products.forEach((product) => {
-				const card = document.createElement("div");
-				card.classList.add("col-md-6");
+	// Check if the "clothinguser" value exists in the local storage
+	const username = localStorage.getItem('clothinguser');
+	page = 1;
 
-				const cardBody = document.createElement("div");
-				cardBody.classList.add("card");
+	if (!localStorage.getItem('clothinguser')) 
+	{
+	  // If it doesn't exist, redirect to login.html
+	  window.location.href = "login.html";
+	}
 
-				const image = document.createElement("img");
-				image.src = product.image;
+	const sessionButton = document.getElementById("user-btn");
 
-				const title = document.createElement("h3");
-				title.innerText = product.name;
+	sessionButton.textContent = "Logged in as: " + username;
 
-				const cost = document.createElement("p");
-				cost.innerHTML = `Cost: <span class="cost">${product.cost}</span>`;
+	sessionButton.addEventListener('mouseover', function() {
+	  sessionButton.textContent = 'Log Out';
+	});
 
-				const rating = document.createElement("p");
-				rating.innerHTML = `Rating: <span class="revenue">${product.rating}</span>`;
+	sessionButton.addEventListener('mouseout', function() {
+	  sessionButton.textContent = "Logged in as: " + username;
+	});
 
-				const buyLink = document.createElement("a");
-				buyLink.href = product.buyUrl;
-				buyLink.innerText = "BUY";
-				buyLink.classList.add("btn", "btn-primary");
+	function logout(){
+		localStorage.removeItem('clothinguser');
+		window.location.href = 'login.html';
+	}
 
-				cardBody.appendChild(image);
-				cardBody.appendChild(title);
-				cardBody.appendChild(cost);
-				cardBody.appendChild(rating);
-				cardBody.appendChild(buyLink);
-				card.appendChild(cardBody);
-				container.appendChild(card);
-				});
+	function populatePage() {
+		// Update the main product image
+		document.querySelector('.main-project img').setAttribute('src', products[5]);
 
-				
-			} else {
-				// Handle the error
-				console.error('Error:', xhr.statusText);
-			}
-			};
-		
-			// Send the request
-			xhr.send();
+		// Update the detected items
+		const detectedItems = document.querySelectorAll('.main-project label');
+		for (let i = 0; i < detectedItems.length; i++) {
+			detectedItems[i].textContent = products[6][i];
 		}
-		
-		// Call the getProducts function to make the AJAX request
-		getProducts();
-		
-	</script>
+
+		// Update the suggested products
+		const suggestedProducts = document.querySelectorAll('.card');
+		for (let i = 0; i < suggestedProducts.length; i++) {
+			const img = suggestedProducts[i].querySelector('img');
+			img.setAttribute('src', products[1][i]);
+			const title = suggestedProducts[i].querySelector('h3');
+			title.textContent = products[0][i];
+			const cost = suggestedProducts[i].querySelector('.cost');
+			cost.textContent = products[2][i];
+			const rating = suggestedProducts[i].querySelector('.revenue');
+			rating.textContent = products[3][i];
+			const buyLink = suggestedProducts[i].querySelector('a');
+			buyLink.setAttribute('href', products[4][i]);
+		}
+	}
+
+	// Define the URL to send the request to
+	const url = 'https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/getter1/search';
+
+	// Make the Ajax GET request
+	$.ajax({
+		url: url,
+		type: 'GET',
+		data: {
+		  user: username,
+		  page: "1"
+		},
+		headers: {
+		  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
+		},
+		success: function(response) {
+			// Store the received response in the products variable
+			products = response;
+
+			// Populate the page with the received response
+			populatePage();
+		}
+
+	});
+
+</script>
+
 </body>
