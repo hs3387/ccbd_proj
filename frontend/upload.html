@@ -165,7 +165,8 @@
     $('#upload-form').submit(function(e) {
       e.preventDefault();
       var photo = $('#photo-input')[0].files[0];
-      var username = $('#username-input').val();
+	  photo.name = Date.now() + '_' + photo.name;
+      var username = localStorage.getItem('clothinguser');;
 
       // create form data
       var formData = new FormData();
