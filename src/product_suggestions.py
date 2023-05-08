@@ -54,10 +54,12 @@ def download_original_images(image_urls):
 				file.write(image.content)
 
 
-def get_suggested_search_data(input):
+def get_suggested_search_data(input,num_sugg=1):
+    print("SEARCHING FOR :")
+    print(input)
     google_shopping_data = []
     selector = get_selector(input)
-    
+    sugg = []
     for result, thumbnail in zip(selector.css(".Qlx7of .i0X6df"), get_original_images(input)):
         title = result.css(".tAxDx::text").get()		
         product_link = "https://www.google.com" + result.css(".Lq5OHe::attr(href)").get()	
@@ -101,10 +103,11 @@ def get_suggested_search_data(input):
         google_shopping_data.sort(key=weighted_average, reverse=True)
         
         # Select the top three products by rating
-        top_three = google_shopping_data[:3]
+        sugg = google_shopping_data[:num_sugg]
 
-    #print(json.dumps(top_three, indent=2, ensure_ascii=False))
-    top_suggestions = json.dumps(top_three, indent=2, ensure_ascii=False)
+    #print(json.dumps(sugg, indent=2, ensure_ascii=False))
+    # top_suggestions = [json.dumps(s, indent=2, ensure_ascii=False) for s in sugg]
+    top_suggestions = sugg
     return top_suggestions
 
 # Test:
