@@ -165,7 +165,9 @@
     $('#upload-form').submit(function(e) {
       e.preventDefault();
       var photo = $('#photo-input')[0].files[0];
-	  photo.name = Date.now() + '_' + photo.name;
+	  var x = photo.name
+	  var y = Date.now() + '_' + x;
+	  var z = y.replace(/\s+/g, '_');
       var username = localStorage.getItem('clothinguser');;
 
       // create form data
@@ -174,7 +176,7 @@
 
       // make API call
       $.ajax({
-        url: "https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/haya_test/upload/cloud-photos-b2/" + photo.name,
+        url: "https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/haya_test/upload/cloud-photos-b2/" + z,
         type: "PUT",
         data: photo,
         headers: {

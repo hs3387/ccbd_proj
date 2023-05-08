@@ -224,7 +224,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="main-project">
-                    <img>
+                    <img id="tnail" src="">
                     <h3>Detected as</h3>
                     <div id="img_labels">Labels</div>
                 </div>
@@ -324,163 +324,193 @@
 		</div>
     </div>
 	<script>
-
-	// Check if the "clothinguser" value exists in the local storage
-	const username = localStorage.getItem('clothinguser');
-	var currentpage = 1;
-	var lastPage = 0;
-
-	if (!localStorage.getItem('clothinguser')) 
-	{
-	  // If it doesn't exist, redirect to login.html
-	  window.location.href = "login.html";
-	}
-
-	const sessionButton = document.getElementById("user-btn");
-
-	sessionButton.textContent = "Logged in as: " + username;
-
-	sessionButton.addEventListener('mouseover', function() {
-	  sessionButton.textContent = 'Log Out';
-	});
-
-	sessionButton.addEventListener('mouseout', function() {
-	  sessionButton.textContent = "Logged in as: " + username;
-	});
-
-	function logout(){
-		localStorage.removeItem('clothinguser');
-		window.location.href = 'login.html';
-	}
-
-	function populatePage() {
-		lastPage = products[7];
-
-
-		if (currentpage == 1){
-			document.getElementById("prevButton").style.display = "none";
-		}
-		if (currentpage == lastPage){
-			document.getElementById("nextButton").style.display = "none";
-		}
-
-		document.getElementById("pg_no").textContent = currentpage;
-		document.getElementById("pg_tot").textContent = lastPage;
-		
-		// Update the main product image
-		document.querySelector('.main-project img').setAttribute('src', products[5]);
-		
-		document.getElementById("img_labels").textContent = products[6].join(" ").replace(/(?:^|\s)\S/g, function(firstChar) {return firstChar.toUpperCase();});
-		
-		// Update the suggested products
-		const suggestedProducts = document.querySelectorAll('.card');
-		for (let i = 0; i < suggestedProducts.length; i++) {
-			const img = suggestedProducts[i].querySelector('img');
-			img.setAttribute('src', products[1][i]);
-			const title = suggestedProducts[i].querySelector('h3');
-			title.textContent = products[0][i];
-			const store = suggestedProducts[i].querySelector('.store');
-			store.textContent = products[8][i];
-			const cost = suggestedProducts[i].querySelector('.cost');
-			cost.textContent = products[2][i];
-			const rating = suggestedProducts[i].querySelector('.revenue');
-			rating.textContent = products[3][i];
-			const buyLink = suggestedProducts[i].querySelector('.store');
-			buyLink.setAttribute('href', products[4][i]);
-		}
-		
-		if (products[9][0] == "0") document.getElementById("heart1").checked = false;
-		else if (products[9][0] == "1") document.getElementById("heart1").checked = true;
-		
-		if (products[9][1] == "0") document.getElementById("heart2").checked = false;
-		else if (products[9][1] == "1") document.getElementById("heart2").checked = true;
-		
-		if (products[9][2] == "0") document.getElementById("heart3").checked = false;
-		else if (products[9][2] == "1") document.getElementById("heart3").checked = true;
-		
-		if (products[9][3] == "0") document.getElementById("heart4").checked = false;
-		else if (products[9][3] == "1") document.getElementById("heart4").checked = true;
-		
-		if (products[9][4] == "0") document.getElementById("heart5").checked = false;
-		else if (products[9][4] == "1") document.getElementById("heart5").checked = true;
-		
-		
-		
-		
-	}
 	
-	
-	function getResult(){
-		// Define the URL to send the request to
-		const url = 'https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/getter1/search';
+		var imageName = "";
+		
+		// Check if the "clothinguser" value exists in the local storage
+		const username = localStorage.getItem('clothinguser');
+		var currentpage = 1;
+		var lastPage = 0;
 
-		// Make the Ajax GET request
-		$.ajax({
-			url: url,
-			type: 'GET',
-			data: {
-			  user: username,
-			  page: currentpage
-			},
-			headers: {
-			  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
-			},
-			success: function(response) {
-				// Store the received response in the products variable
-				products = response;
-				
-				// Populate the page with the received response
-				populatePage();
+		if (!localStorage.getItem('clothinguser')) 
+		{
+		  // If it doesn't exist, redirect to login.html
+		  window.location.href = "login.html";
+		}
+
+		const sessionButton = document.getElementById("user-btn");
+
+		sessionButton.textContent = "Logged in as: " + username;
+
+		sessionButton.addEventListener('mouseover', function() {
+		  sessionButton.textContent = 'Log Out';
+		});
+
+		sessionButton.addEventListener('mouseout', function() {
+		  sessionButton.textContent = "Logged in as: " + username;
+		});
+
+		function logout(){
+			localStorage.removeItem('clothinguser');
+			window.location.href = 'login.html';
+		}
+
+		function populatePage() {
+			lastPage = products[7];
+
+
+			if (currentpage == 1){
+				document.getElementById("prevButton").style.display = "none";
+			}
+			if (currentpage == lastPage){
+				document.getElementById("nextButton").style.display = "none";
 			}
 
+			document.getElementById("pg_no").textContent = currentpage;
+			document.getElementById("pg_tot").textContent = lastPage;
+			
+			// Update the main product image
+			const imagePath = products[5];
+			document.querySelector('.main-project img').setAttribute('src', imagePath);
+			imageName = imagePath.substring(imagePath.lastIndexOf("/") + 1).split("?")[0];
+			console.log(imageName);
+			
+			document.getElementById("img_labels").textContent = products[6].join(" ").replace(/(?:^|\s)\S/g, function(firstChar) {return firstChar.toUpperCase();});
+			
+			// Update the suggested products
+			const suggestedProducts = document.querySelectorAll('.card');
+			for (let i = 0; i < suggestedProducts.length; i++) {
+				const img = suggestedProducts[i].querySelector('img');
+				img.setAttribute('src', products[1][i]);
+				const title = suggestedProducts[i].querySelector('h3');
+				title.textContent = products[0][i];
+				const store = suggestedProducts[i].querySelector('.store');
+				store.textContent = products[8][i];
+				const cost = suggestedProducts[i].querySelector('.cost');
+				cost.textContent = products[2][i];
+				const rating = suggestedProducts[i].querySelector('.revenue');
+				rating.textContent = products[3][i];
+				const buyLink = suggestedProducts[i].querySelector('.store');
+				buyLink.setAttribute('href', products[4][i]);
+			}
+			
+			if (products[9][0] == "0") document.getElementById("heart1").checked = false;
+			else if (products[9][0] == "1") document.getElementById("heart1").checked = true;
+			
+			if (products[9][1] == "0") document.getElementById("heart2").checked = false;
+			else if (products[9][1] == "1") document.getElementById("heart2").checked = true;
+			
+			if (products[9][2] == "0") document.getElementById("heart3").checked = false;
+			else if (products[9][2] == "1") document.getElementById("heart3").checked = true;
+			
+			if (products[9][3] == "0") document.getElementById("heart4").checked = false;
+			else if (products[9][3] == "1") document.getElementById("heart4").checked = true;
+			
+			if (products[9][4] == "0") document.getElementById("heart5").checked = false;
+			else if (products[9][4] == "1") document.getElementById("heart5").checked = true;
+			
+			
+			
+		}
+		
+		
+		function getResult(){
+			// Define the URL to send the request to
+			const url = 'https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/getter1/search';
+
+			// Make the Ajax GET request
+			$.ajax({
+				url: url,
+				type: 'GET',
+				data: {
+				  user: username,
+				  page: currentpage
+				},
+				headers: {
+				  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
+				},
+				success: function(response) {
+					// Store the received response in the products variable
+					products = response;
+					
+					// Populate the page with the received response
+					populatePage();
+				}
+
+			});
+			
+		}
+		
+		function prevResult(){
+			if (currentpage == 1) return;
+			
+			currentpage--;
+			
+			if (currentpage == 1) document.getElementById("prevButton").style.display = "none";
+			else document.getElementById("prevButton").style.display = "block";
+			
+			if (currentpage == lastPage) document.getElementById("nextButton").style.display = "none";
+			else document.getElementById("nextButton").style.display = "block";
+			
+			
+			getResult();
+		
+		}
+		
+		function nextResult(){
+			if (currentpage == lastPage) return;
+			
+			currentpage++;
+			
+			if (currentpage == lastPage) document.getElementById("nextButton").style.display = "none";
+			else document.getElementById("nextButton").style.display = "block";
+			
+			if (currentpage == 1) document.getElementById("prevButton").style.display = "none";
+			else document.getElementById("prevButton").style.display = "block";
+			
+			getResult();
+		
+		}
+		
+		
+		const checkboxes = document.querySelectorAll('[id^="heart"]');
+		checkboxes.forEach(checkbox => {
+		  checkbox.addEventListener("change", function() {
+			var fav_checks = ["0", "0", "0", "0", "0"]
+			
+			if (document.getElementById("heart1").checked == true) fav_checks[0] = "1";
+			if (document.getElementById("heart2").checked == true) fav_checks[1] = "1";
+			if (document.getElementById("heart3").checked == true) fav_checks[2] = "1";
+			if (document.getElementById("heart4").checked == true) fav_checks[3] = "1";
+			if (document.getElementById("heart5").checked == true) fav_checks[4] = "1";
+			
+			fav_concat = fav_checks[0] + fav_checks[1] + fav_checks[2] + fav_checks[3] + fav_checks[4];
+			console.log(fav_concat)
+			
+			
+			const data = {'key':imageName,'faves':fav_concat};
+			const endpoint = 'https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/faves/fave';
+
+			$.ajax({
+			  url: endpoint,
+			  type: 'PUT',
+			  headers: {
+				  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil",
+				  "contentType": "application/json"
+				},
+			  data: JSON.stringify(data),
+			  success: function(response) {
+				console.log('Item updated successfully');
+			  },
+			  error: function(xhr, status, error) {
+				console.error('Error updating item:', error);
+			  }
+			});
+			
+		  });
 		});
 		
-	}
-	
-	function prevResult(){
-		if (currentpage == 1) return;
-		
-		currentpage--;
-		
-		if (currentpage == 1)
-			document.getElementById("prevButton").style.display = "none";
-		else
-			document.getElementById("prevButton").style.display = "none";
-			
-		
 		getResult();
-	
-	}
-	
-	function nextResult(){
-		if (currentpage == lastPage) return;
-		
-		currentpage++;
-		
-		if (currentpage == lastPage) document.getElementById("nextButton").style.display = "none";
-		
-		getResult();
-	
-	}
-	
-	
-	const checkboxes = document.querySelectorAll('[id^="heart"]');
-	checkboxes.forEach(checkbox => {
-	  checkbox.addEventListener("change", function() {
-		var fav_checks = ["0", "0", "0", "0", "0"]
-		
-		if (document.getElementById("heart1").checked == true) fav_checks[0] = "1";
-		if (document.getElementById("heart2").checked == true) fav_checks[1] = "1";
-		if (document.getElementById("heart3").checked == true) fav_checks[2] = "1";
-		if (document.getElementById("heart4").checked == true) fav_checks[3] = "1";
-		if (document.getElementById("heart5").checked == true) fav_checks[4] = "1";
-		
-		console.log(fav_checks);
-		
-	  });
-	});
-	
-	getResult();
 
 </script>
 
