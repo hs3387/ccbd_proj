@@ -17,8 +17,14 @@ The proliferation of online shopping platforms has made it easier for consumers 
 <!---------------------------------------------------------------------------------------------------------------->
 The structure of the repository is as follows: 
 
-- `assets/`: Contains the html, js, css file used for out application
-- `fashionRecommender-swagger.yaml` : Contains the basic API endpoints planned to be implemented
+- fashionRecommender-swagger.yaml : Contains the basic API endpoints planned to be implemented
+- __pycache__: 
+- frontend: 
+- img: 
+- proto: 
+- src: 
+- tests: 
+- utils: 
 
 ---
 
