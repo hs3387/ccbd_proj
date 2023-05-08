@@ -44,4 +44,10 @@ The structure of the repository is as follows:
 - JavaScript
 - YAML
 - AWS CLI
-- 
+
+
+##To Run
+- Deploy the Lambdas, each lambda function begins with "clothing_" above
+- Set up the API gateway as per the YAML
+- Deploy the frontend folder in S3 static website hosting
+- Generate DynamoDBs as required in the LFs
