@@ -31,7 +31,7 @@ The structure of the repository is as follows:
 		- `Fashion Recommendation Table.xlsx`: Tables of reccomendation combinations 
 	- `clothing_login.py`: Sign up and Authentication handler script
 	- `clothing_getter.py`: GET call handler for frontend, to return required data
-	 `label2suggestion_2.0.ipynb`: ML Model to generate clothing recommendation pairs
+	- `label2suggestion_2.0.ipynb`: ML Model to generate clothing recommendation pairs
 - `tests`: Test Scripts and Pages used to test component Functionalities
 - `utils`: ML model utility and library files
 
