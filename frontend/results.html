@@ -122,6 +122,56 @@
 		   color: black;
 		   cursor: pointer;
 	    }
+
+		.checkbox_div {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		/*      CHECKBOX         */
+
+		input[type="checkbox"] {
+			display: none;
+		}
+
+
+		input[type="checkbox"] + label {
+			position: relative;
+			padding-left: 35px;
+			display: inline-block;
+			font-size: 16px;
+		}
+		
+		input[type="checkbox"] + label:before {
+			content: "\1F5A4";
+			top: -11px;
+			left: -8px;
+			border: 1px solid transparent;    
+			padding: 10px;
+			border-radius: 3px;
+			display: block;
+			position: absolute;
+			transition:  .5s ease;
+		}
+		
+
+		
+		input[type="checkbox"]:checked + label:before {
+			border: 1px solid transparent;
+			background-color: transparent;
+		}
+		
+		input[type="checkbox"]:checked + label:after {
+			content: '\1F49B';
+			font-size: 18px;
+			position: absolute;
+			top: -1px;
+			left: 1px;
+			color: gold;
+			transition:  .5s ease;
+		}
+		/*                       */
 </style>
 
 </head>
@@ -182,6 +232,12 @@
                             <h3>{{ products[0][0] }}</h3>
                             <p>Cost: <span class="cost">{{ products[2][0] }}</span></p>
                             <p>Rating: <span class="revenue">{{ products[3][0] }}</span></p>
+							<div class="checkbox_div">
+								<input type="checkbox" id="heart1" checked/>
+								<label for="heart">
+									Add to wishlist
+								</label>
+							</div>
                             <a href="{{ products[4][0] }}" class="btn btn-primary">BUY</a>
                         </div>
                     </div>
@@ -191,6 +247,12 @@
                             <h3>{{ products[0][1] }}</h3>
                             <p>Cost: <span class="cost">{{ products[2][1] }}</span></p>
                             <p>Rating: <span class="revenue">{{ products[3][1] }}</span></p>
+							<div class="checkbox_div">
+								<input type="checkbox" id="heart2" checked/>
+								<label for="heart">
+									Add to wishlist
+								</label>
+							</div>
                             <a href="{{ products[4][1] }}" class="btn btn-primary">BUY</a>
                         </div>
                     </div>
@@ -204,6 +266,12 @@
 							<h3>{{ products[0][i] }}</h3>
 							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
 							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
+							<div class="checkbox_div">
+								<input type="checkbox" id="heart3" checked/>
+								<label for="heart">
+									Add to wishlist
+								</label>
+							</div>
 							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
 						</div>
 					</div>
@@ -214,6 +282,12 @@
 							<h3>{{ products[0][i] }}</h3>
 							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
 							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
+							<div class="checkbox_div">
+								<input type="checkbox" id="heart4" checked/>
+								<label for="heart">
+									Add to wishlist
+								</label>
+							</div>
 							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
 						</div>
 					</div>
@@ -224,6 +298,12 @@
 							<h3>{{ products[0][i] }}</h3>
 							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
 							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
+							<div class="checkbox_div">
+								<input type="checkbox" id="heart5" checked/>
+								<label for="heart">
+									Add to wishlist
+								</label>
+							</div>
 							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
 						</div>
 					</div>
