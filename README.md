@@ -17,21 +17,31 @@ The proliferation of online shopping platforms has made it easier for consumers 
 <!---------------------------------------------------------------------------------------------------------------->
 The structure of the repository is as follows: 
 
-- `__pycache__`: 
+- `__pycache__`: Library Files for Python Implementations
 - `frontend`: 
 	- `fashionRecommender-swagger.yaml` : Contains the basic API endpoints planned to be implemented
-- `img`: 
-- `proto`: 
-- `src`: 
-- `tests`: 
-- `utils`: 
+- `img`: Suggestions ML Model I/O sample
+- `proto`: Original Frontend Prototype
+- `src`: Backend Source Code
+	- `__pycache__`: Py Libraries
+	- `clothing_identify`:
+		- `label2suggestion.py`: Suggestions generator script part 1
+		- `product_suggestions.py`: Suggestions generator script part 2
+		- `driver.py`: Main Driver script that compiles the functionality of all modules
+		- `Fashion Recommendation Table.xlsx`: Tables of reccomendation combinations 
+	- `clothing_login.py`: Sign up and Authentication handler script
+	- `clothing_getter.py`: GET call handler for frontend, to return required data
+	 `label2suggestion_2.0.ipynb`: ML Model to generate clothing recommendation pairs
+- `tests`: Test Scripts and Pages used to test component Functionalities
+- `utils`: ML model utility and library files
 
 ---
 
 ## Dependencies
-- Python 3.7
-- HTML, CSS, JavaScript
+- Python 3.10
+- HTML
+- CSS
+- JavaScript
 - YAML
-- Under development... 
-
-As of 3/8/23, this is the clickable prototype
+- AWS CLI
+- 

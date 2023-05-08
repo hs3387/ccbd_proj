@@ -60,17 +60,20 @@ def detect_labels(photo, bucket, clothes):
 
      if "ImageProperties" in str(response):
         #  print("IMAGEPROPERTIES =",response["ImageProperties"])
-         print("Background:")
-         print(response["ImageProperties"]["Background"]["DominantColors"][0])
-         print()
-         print("Foreground:")
-         print(response["ImageProperties"]["Foreground"]["DominantColors"][0])
-         print()
-        #  print("Quality:")
-        #  print(response["ImageProperties"]["Quality"])
-        #  print()
-         
-         return response['Labels'], response["ImageProperties"]["Foreground"]["DominantColors"][0]["CSSColor"], response["ImageProperties"]["Foreground"]["DominantColors"][0]["SimplifiedColor"], gender, bounding_box
+         if 'Foreground' in response["ImageProperties"].keys():
+             print("Background:")
+             print(response["ImageProperties"]["Background"]["DominantColors"][0])
+             print()
+             print("Foreground:")
+             print(response["ImageProperties"]["Foreground"]["DominantColors"][0])
+             print()
+            #  print("Quality:")
+            #  print(response["ImageProperties"]["Quality"])
+            #  print()
+             
+             return response['Labels'], response["ImageProperties"]["Foreground"]["DominantColors"][0]["CSSColor"], response["ImageProperties"]["Foreground"]["DominantColors"][0]["SimplifiedColor"], gender, bounding_box
+         else:
+             return response['Labels'], response["ImageProperties"]["DominantColors"][0]["CSSColor"], response["ImageProperties"]["DominantColors"][0]["SimplifiedColor"], gender, bounding_box
 
      return response['Labels'], None, None, gender, bounding_box
 
@@ -269,7 +272,7 @@ def lambda_handler(event,context):
     
     bucket = event["Records"][0]["s3"]["bucket"]["name"]
     key = event["Records"][0]["s3"]["object"]["key"]
-
+    key = key.replace("+"," ")
     try:
         s3 = boto3.client('s3')
         response = s3.head_object(Bucket=bucket,Key=key)
