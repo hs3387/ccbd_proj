@@ -171,6 +171,8 @@
 			color: gold;
 			transition:  .5s ease;
 		}
+		
+		
 		/*                       */
 </style>
 
@@ -198,7 +200,7 @@
 	</nav>
 
 	<center>
-		<span>Page </span><span id="pg_no">1</span><span>/</span><span id="pg_tot">x</span>
+		<span>Page </span><span id="pg_no">x</span><span>/</span><span id="pg_tot">x</span>
 	</center>
 
 
@@ -230,11 +232,12 @@
                         <div class="card">
                             <img>
                             <h3>{{ products[0][0] }}</h3>
-                            <p>Cost: <span class="cost">{{ products[2][0] }}</span></p>
+                            <p>Store: <span class="store">{{ products[8][i] }}</span></p>
+							<p>Cost: <span class="cost">{{ products[2][0] }}</span></p>
                             <p>Rating: <span class="revenue">{{ products[3][0] }}</span></p>
 							<div class="checkbox_div">
-								<input type="checkbox" id="heart1" checked/>
-								<label for="heart">
+								<input type="checkbox" id="heart1"/>
+								<label for="heart1">
 									Add to wishlist
 								</label>
 							</div>
@@ -245,11 +248,12 @@
                         <div class="card">
                             <img src="{{ products[1][1] }}" >
                             <h3>{{ products[0][1] }}</h3>
-                            <p>Cost: <span class="cost">{{ products[2][1] }}</span></p>
+                            <p>Store: <span class="store">{{ products[8][i] }}</span></p>
+							<p>Cost: <span class="cost">{{ products[2][1] }}</span></p>
                             <p>Rating: <span class="revenue">{{ products[3][1] }}</span></p>
 							<div class="checkbox_div">
-								<input type="checkbox" id="heart2" checked/>
-								<label for="heart">
+								<input type="checkbox" id="heart2"/>
+								<label for="heart2">
 									Add to wishlist
 								</label>
 							</div>
@@ -264,11 +268,12 @@
 						<div class="card">
 							<img src="{{ products[1][i] }}" >
 							<h3>{{ products[0][i] }}</h3>
+							<p>Store: <span class="store">{{ products[8][i] }}</span></p>
 							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
 							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
 							<div class="checkbox_div">
-								<input type="checkbox" id="heart3" checked/>
-								<label for="heart">
+								<input type="checkbox" id="heart3"/>
+								<label for="heart3">
 									Add to wishlist
 								</label>
 							</div>
@@ -280,11 +285,12 @@
 						<div class="card">
 							<img src="{{ products[1][i] }}" >
 							<h3>{{ products[0][i] }}</h3>
+							<p>Store: <span class="store">{{ products[8][i] }}</span></p>
 							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
 							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
 							<div class="checkbox_div">
-								<input type="checkbox" id="heart4" checked/>
-								<label for="heart">
+								<input type="checkbox" id="heart4"/>
+								<label for="heart4">
 									Add to wishlist
 								</label>
 							</div>
@@ -296,11 +302,12 @@
 						<div class="card">
 							<img src="{{ products[1][i] }}" >
 							<h3>{{ products[0][i] }}</h3>
+							<p>Store: <span class="store">{{ products[8][i] }}</span></p>
 							<p>Cost: <span class="cost">{{ products[2][i] }}</span></p>
 							<p>Rating: <span class="revenue">{{ products[3][i] }}</span></p>
 							<div class="checkbox_div">
-								<input type="checkbox" id="heart5" checked/>
-								<label for="heart">
+								<input type="checkbox" id="heart5"/>
+								<label for="heart5">
 									Add to wishlist
 								</label>
 							</div>
@@ -342,12 +349,18 @@
 	}
 
 	function populatePage() {
-		// Update the main product image
-		//if currentpage == 1{
-		//	document.getElementById("prevButton").style.display = "none";
-		//}
+		if (currentpage == 1){
+			document.getElementById("prevButton").style.display = "none";
+		}
+		if (currentpage == products[7]){
+			document.getElementById("nextButton").style.display = "none";
+		}
+
 		
+		document.getElementById("pg_no").textContent = currentpage;
 		document.getElementById("pg_tot").textContent = products[7];
+		
+		// Update the main product image
 		document.querySelector('.main-project img').setAttribute('src', products[5]);
 		
 		document.getElementById("img_labels").textContent = products[6].join(" ").replace(/(?:^|\s)\S/g, function(firstChar) {return firstChar.toUpperCase();});
@@ -359,40 +372,47 @@
 			img.setAttribute('src', products[1][i]);
 			const title = suggestedProducts[i].querySelector('h3');
 			title.textContent = products[0][i];
+			const store = suggestedProducts[i].querySelector('.store');
+			store.textContent = products[8][i];
 			const cost = suggestedProducts[i].querySelector('.cost');
 			cost.textContent = products[2][i];
 			const rating = suggestedProducts[i].querySelector('.revenue');
 			rating.textContent = products[3][i];
-			const buyLink = suggestedProducts[i].querySelector('a');
+			const buyLink = suggestedProducts[i].querySelector('.store');
 			buyLink.setAttribute('href', products[4][i]);
 		}
 	}
+	
+	
+	function getResult(){
+		// Define the URL to send the request to
+		const url = 'https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/getter1/search';
 
-	// Define the URL to send the request to
-	const url = 'https://p0dhnmes8f.execute-api.us-east-1.amazonaws.com/getter1/search';
+		// Make the Ajax GET request
+		$.ajax({
+			url: url,
+			type: 'GET',
+			data: {
+			  user: username,
+			  page: currentpage
+			},
+			headers: {
+			  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
+			},
+			success: function(response) {
+				// Store the received response in the products variable
+				products = response;
+				
+				
+				// Populate the page with the received response
+				populatePage();
+			}
 
-	// Make the Ajax GET request
-	$.ajax({
-		url: url,
-		type: 'GET',
-		data: {
-		  user: username,
-		  page: currentpage
-		},
-		headers: {
-		  "x-api-key": "XtG9gjlimX1sT0xobg4VC47fq98QGzZL5qwDqQil"
-		},
-		success: function(response) {
-			// Store the received response in the products variable
-			products = response;
-			
-			console.log(products[0])
-			
-			// Populate the page with the received response
-			populatePage();
-		}
-
-	});
+		});
+		
+	}
+	
+	getResult();
 
 </script>
 
