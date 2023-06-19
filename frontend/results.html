@@ -245,7 +245,7 @@
 									Add to wishlist
 								</label>
 							</div>
-                            <a href="{{ products[4][0] }}" class="btn btn-primary">BUY</a>
+                            <a class="buy" href="{{ products[4][0] }}" class="btn btn-primary">BUY</a>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -261,7 +261,7 @@
 									Add to wishlist
 								</label>
 							</div>
-                            <a href="{{ products[4][1] }}" class="btn btn-primary">BUY</a>
+                            <a class="buy" href="{{ products[4][0] }}" class="btn btn-primary">BUY</a>
                         </div>
                     </div>
 				</div>
@@ -281,7 +281,7 @@
 									Add to wishlist
 								</label>
 							</div>
-							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
+                            <a class="buy" href="{{ products[4][0] }}" class="btn btn-primary">BUY</a>
 						</div>
 					</div>
 					
@@ -298,7 +298,7 @@
 									Add to wishlist
 								</label>
 							</div>
-							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
+                            <a class="buy" href="{{ products[4][0] }}" class="btn btn-primary">BUY</a>
 						</div>
 					</div>
 					
@@ -315,7 +315,7 @@
 									Add to wishlist
 								</label>
 							</div>
-							<a href="{{ products[4][i] }}" class="btn btn-primary">BUY</a>
+                            <a class="buy" href="{{ products[4][0] }}" class="btn btn-primary">BUY</a>
 						</div>
 					</div>
 		
@@ -390,8 +390,9 @@
 				cost.textContent = products[2][i];
 				const rating = suggestedProducts[i].querySelector('.revenue');
 				rating.textContent = products[3][i];
-				const buyLink = suggestedProducts[i].querySelector('.store');
+				const buyLink = suggestedProducts[i].querySelector('.buy');
 				buyLink.setAttribute('href', products[4][i]);
+				console.log(products[4][i]);
 			}
 			
 			if (products[9][0] == "0") document.getElementById("heart1").checked = false;
